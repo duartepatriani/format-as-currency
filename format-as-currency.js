@@ -45,7 +45,7 @@ angular
     if (!angular.isString(currencyString)) {
       throw new TypeError ('formatAsCurrencyUtilities#toFloat expects its 1st argument to be a String, but was given ' + currencyString)
     }
-
+    currencyString = currencyString.replace(/([A-Z])+/g, '');
     return parseFloat(currencyString.replace(/(\$|\,)+/g, ''), 10)
   }
 
@@ -69,6 +69,9 @@ angular
         var number = util
           .toFloat(value)
           .toFixed(2)
+
+         if (isNaN(number) && value != '')
+        	number = 0;
 
         if (ngModel.$validators.currency(number)) {
 
